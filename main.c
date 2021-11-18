@@ -35,7 +35,7 @@ int main()
         j=0;
         for(int i=0;tableau[i]!='\0';i++)
             {
-               if (tableau[i]==','&& tableau[i]== '\n')
+               if (tableau[i]==','| tableau[i]== '\n')
                {
                     switch (colone)
                    {
