@@ -1,0 +1,1 @@
+recherche_index(pt_annuaire,0);

@@ -8,16 +8,30 @@ typedef struct csv
     char prenom[20],nom[20],ville[20],codep[20],tel[20],mail[20],metier[20];
 } CSV;
 
-
+CSV recherche_index(CSV (*blop)[],int index);
 
 // main feature
 int main()
 {
+
+    // char a[30] = "Salut ca va !";
+    // char (*b)[] = &a;
+
+    // printf("%s\n",a);
+    // printf("%d", b);
+
+    // (*b)[3] = 'c';
+    // printf("%d\n", b);
+
+    // printf("%s\n",a);
+    // printf("%d", b);
+
     char tableau[250];
     int ligne = 0;
     int colone = 0;
     int j = 0;
     CSV csv_tab[7000];
+    CSV (*pt_annuaire)[]=&csv_tab;
 
     FILE * annuaire = fopen(fic,"r") ;
     // test de l'ouverture
@@ -99,15 +113,21 @@ int main()
                    }
                     j++;
                }
-                 
+
             }
         ligne++;
     } while (!feof(annuaire));
-    printf("%s\n",csv_tab[2].nom);
+    // printf("%s\n",csv_tab[2].nom);
+
+    recherche_index(pt_annuaire,0);
         
     return 0;
     
 }
+// ---------------fonction----------------
+CSV recherche_index(CSV (*blop)[],int index)
+// redigé par Graux François 
 
-// --------tri de la liste --------
-
+{
+    printf("%s",(*blop)[index].nom);
+}
