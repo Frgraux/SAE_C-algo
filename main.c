@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #define fic "annuaire5000.csv"
 
 // création de la struct csv
@@ -9,6 +10,7 @@ typedef struct csv
 } CSV;
 
 CSV recherche_index(CSV (*blop)[],int index);
+char tri_liste(CSV(*blop)[],int ligne);
 
 // main feature
 int main()
@@ -119,15 +121,41 @@ int main()
     } while (!feof(annuaire));
     // printf("%s\n",csv_tab[2].nom);
 
-    recherche_index(pt_annuaire,0);
-        
-    return 0;
+    tri_liste(pt_annuaire,ligne);
     
+    for (int i = 0; i < 5000; i++)
+    {
+        recherche_index(pt_annuaire,i);
+    }
+    
+    return 0;
 }
 // ---------------fonction----------------
 CSV recherche_index(CSV (*blop)[],int index)
 // redigé par Graux François 
 
 {
-    printf("%s",(*blop)[index].nom);
+    printf("[%s]\n",(*blop)[index].nom);
+}
+
+char tri_liste(CSV(*blop)[],int ligne)
+// redigé par Graux François
+{
+    int j;
+    int i;
+    CSV ppt;
+    i=1;
+    while (i < ligne)
+    {
+        ppt = (*blop)[i];
+        j=i-1;
+        while (j>=0 && strcasecmp(ppt.nom,(*blop)[j].nom)<0)
+        {
+            (*blop)[j+1]=(*blop)[j];
+            j=j-1;
+        }
+        (*blop)[j+1]=ppt;
+        i=i+1;
+        
+    }
 }
