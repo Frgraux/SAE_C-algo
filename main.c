@@ -11,6 +11,8 @@ typedef struct csv
 
 CSV recherche_index(CSV (*blop)[],int index);
 char tri_liste(CSV(*blop)[],int ligne);
+int recherche_occu_vide(CSV(*tab)[],int ligne,int colone);
+void affichage(CSV(*tab)[],int ligne);
 
 // main feature
 int main()
@@ -121,24 +123,26 @@ int main()
     } while (!feof(annuaire));
     // printf("%s\n",csv_tab[2].nom);
 
-    tri_liste(pt_annuaire,ligne);
+    // tri_liste(pt_annuaire,ligne);
     
-    for (int i = 0; i < 5000; i++)
-    {
-        recherche_index(pt_annuaire,i);
-    }
+    // for (int i = 0; i < 5000; i++)
+    // {
+    //     recherche_index(pt_annuaire,i);
+    // }
+
+    recherche_occu_vide(pt_annuaire,ligne,colone);
     
     return 0;
 }
 // ---------------fonction----------------
-CSV recherche_index(CSV (*blop)[],int index)
+CSV recherche_index(CSV (*tab)[],int index)
 // redigé par Graux François 
 
 {
-    printf("[%s]\n",(*blop)[index].nom);
+    printf("[%s]\n",(*tab)[index].nom);
 }
 
-char tri_liste(CSV(*blop)[],int ligne)
+char tri_liste(CSV(*tab)[],int ligne)
 // redigé par Graux François
 {
     int j;
@@ -147,15 +151,97 @@ char tri_liste(CSV(*blop)[],int ligne)
     i=1;
     while (i < ligne)
     {
-        ppt = (*blop)[i];
+        ppt = (*tab)[i];
         j=i-1;
-        while (j>=0 && strcasecmp(ppt.nom,(*blop)[j].nom)<0)
+        while (j>=0 && strcasecmp(ppt.nom,(*tab)[j].nom)<0)
         {
-            (*blop)[j+1]=(*blop)[j];
+            (*tab)[j+1]=(*tab)[j];
             j=j-1;
         }
-        (*blop)[j+1]=ppt;
+        (*tab)[j+1]=ppt;
         i=i+1;
         
     }
+}
+
+void affichage(CSV(*tab)[],int ligne)
+{
+    for(int i=0;i<ligne;i++)
+    {
+        printf("index : %d) %s\n",i,(*tab)[i].prenom);
+    }
+}
+
+int recherche_occu_vide(CSV(*tab)[],int ligne,int colone)
+// rédiger par François Graux
+{
+    int j;
+    int conteur;
+    for (int i = 0; i < ligne; i++)
+    {
+        j=0;
+        while (j<colone)
+        {
+          switch(j)
+            {
+            case 1:
+                 if(strlen((*tab)[i].prenom)==0)
+                {
+                    affichage(tab,i);
+                }
+                conteur++;
+                break;
+            case 2:
+                 if(strlen((*tab)[i].nom)==0)
+                {
+                    affichage(tab,i);
+                }
+                conteur++;
+                break;
+            case 3:
+                 if(strlen((*tab)[i].ville)==0)
+                {
+                    affichage(tab,i);
+                }
+                conteur++; 
+                break;
+            case 4:
+                 if(strlen((*tab)[i].codep)==0)
+                {
+                    affichage(tab,i);
+                }
+                conteur++;  
+                break;
+            case 5:
+                 if(strlen((*tab)[i].tel)==0)
+                {
+                    affichage(tab,i);
+                }
+                conteur++; 
+                break;
+            case 6:
+                 if(strlen((*tab)[i].mail)==0)
+                {
+                    affichage(tab,i);
+                }
+                conteur++;  
+                break;
+            case 7:
+                 if(strlen((*tab)[i].metier)==0)
+                {
+                    affichage(tab,i);
+                }
+                conteur++;  
+                break;
+            
+            default:
+                printf("une erreur c'est produite");
+                break;  
+            }
+        j++;
+
+        }
+        
+    }
+    printf("\nil y a %d personne ou il manque des info",conteur);
 }
