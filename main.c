@@ -11,8 +11,8 @@ typedef struct csv
 
 CSV recherche_index(CSV (*blop)[],int index);
 char tri_liste(CSV(*blop)[],int ligne);
-int recherche_occu_vide(CSV(*tab)[],int ligne,int colone);
-void affichage(CSV(*tab)[],int ligne);
+int recherche_occu_vide(CSV csv_tab[],int ligne);
+void affichage(CSV csv_tab[],int ligne);
 
 // main feature
 int main()
@@ -130,7 +130,7 @@ int main()
     //     recherche_index(pt_annuaire,i);
     // }
 
-    recherche_occu_vide(pt_annuaire,ligne,colone);
+    recherche_occu_vide(csv_tab,ligne);
     
     return 0;
 }
@@ -164,84 +164,24 @@ char tri_liste(CSV(*tab)[],int ligne)
     }
 }
 
-void affichage(CSV(*tab)[],int ligne)
+void affichage(CSV csv_tab[],int ligne)
 {
-    for(int i=0;i<ligne;i++)
-    {
-        printf("index : %d) %s\n",i,(*tab)[i].prenom);
-    }
+    printf("index de la ligne ou il manque des information : %d / Nom et Prenom de la personne : %s-%s\n",ligne+1,csv_tab[ligne].nom,csv_tab[ligne].prenom);
 }
 
-int recherche_occu_vide(CSV(*tab)[],int ligne,int colone)
+int recherche_occu_vide(CSV csv_tab[],int ligne)
 // rédiger par François Graux
+// ligne = taille du tableau
 {
     int j;
     int conteur;
     for (int i = 0; i < ligne; i++)
     {
-        j=0;
-        while (j<colone)
-        {
-          switch(j)
-            {
-            case 1:
-                 if(strlen((*tab)[i].prenom)==0)
-                {
-                    affichage(tab,i);
-                }
-                conteur++;
-                break;
-            case 2:
-                 if(strlen((*tab)[i].nom)==0)
-                {
-                    affichage(tab,i);
-                }
-                conteur++;
-                break;
-            case 3:
-                 if(strlen((*tab)[i].ville)==0)
-                {
-                    affichage(tab,i);
-                }
-                conteur++; 
-                break;
-            case 4:
-                 if(strlen((*tab)[i].codep)==0)
-                {
-                    affichage(tab,i);
-                }
-                conteur++;  
-                break;
-            case 5:
-                 if(strlen((*tab)[i].tel)==0)
-                {
-                    affichage(tab,i);
-                }
-                conteur++; 
-                break;
-            case 6:
-                 if(strlen((*tab)[i].mail)==0)
-                {
-                    affichage(tab,i);
-                }
-                conteur++;  
-                break;
-            case 7:
-                 if(strlen((*tab)[i].metier)==0)
-                {
-                    affichage(tab,i);
-                }
-                conteur++;  
-                break;
-            
-            default:
-                printf("une erreur c'est produite");
-                break;  
-            }
-        j++;
-
-        }
-        
+         if(strlen(csv_tab[i].prenom)==0 || strlen(csv_tab[i].nom)==0 || strlen(csv_tab[i].ville)==0 || strlen(csv_tab[i].codep)==0|| strlen(csv_tab[i].tel)==0|| strlen(csv_tab[i].mail)==0||strlen(csv_tab[i].metier)==0)
+         {
+              affichage(csv_tab,i);
+              conteur++;
+         }
     }
-    printf("\nil y a %d personne ou il manque des info",conteur);
+    printf("\nil y a %d personne ou il manque des information",conteur);
 }
