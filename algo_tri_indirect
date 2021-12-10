@@ -1,0 +1,22 @@
+def trindirect(tab:tableau de x,indice:tableau d'int):
+"""
+:entree tab :tableau de x
+:entee/sortie indice:tableau d'int
+declaration
+:i,j:int
+petit:x
+"""
+#debut
+	i=1
+	while i <=tab.size-1
+		petit=tab[indice[i]]
+		j=i-1
+		while j >= 0 and petit < tab[indice[j]]
+			#si on tombe sur un element plus petit que son perecedent on permute les elements jusqu'a trouver la place de celui qui pause problème
+			indice[j+1]=indice[j]
+			j=j-1
+		#endwhile
+		indice[j+1]=indice[i]
+		i=i+1
+	#endwhile
+#fin
