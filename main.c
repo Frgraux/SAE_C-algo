@@ -14,14 +14,16 @@ CSV recherche_index(CSV csv_tab[], int index);
 char tri_liste(CSV csv_tab[], int ligne);
 int recherche_occu_vide(CSV csv_tab[], int ligne);
 void affichage(CSV csv_tab[], int ligne);
+void recherche(CSV csv_tab[],int ligne);
 
 int main()
 {
 	CSV csv_tab[7000];
 	int ligne = ouverture_attribution(csv_tab);
 
-	for (int i = 0; i < ligne; i++)
-		affichage(csv_tab, i);
+	// for (int i = 0; i < ligne; i++)
+	// 	affichage(csv_tab, i);
+	recherche(csv_tab,ligne);
 	
 
 	return 0;
@@ -154,7 +156,7 @@ char tri_liste(CSV csv_tab[], int ligne)
 
 void affichage(CSV csv_tab[], int ligne)
 {
-	printf("%d / Nom et Prenom de la personne : %s-%s\n", ligne + 1, csv_tab[ligne].nom, csv_tab[ligne].prenom);
+	printf("Information de la personne : %s / %s / %s / %s / %s / %s / %s \n",csv_tab[ligne].nom,csv_tab[ligne].prenom,csv_tab[ligne].ville,csv_tab[ligne].codep,csv_tab[ligne].tel,csv_tab[ligne].mail,csv_tab[ligne].metier);
 }
 
 int recherche_occu_vide(CSV csv_tab[], int ligne)
@@ -174,3 +176,23 @@ int recherche_occu_vide(CSV csv_tab[], int ligne)
 	}
 	printf("\nil y a %d personne ou il manque des information", conteur);
 }
+
+void recherche(CSV csv_tab[],int ligne)
+{
+	tri_liste(csv_tab,ligne);
+	int i=0;
+	char type_rec[50];
+	printf("Entrez ce que vous souhaiter rechercher : ");
+	fgets(type_rec,sizeof(type_rec),stdin);
+	type_rec[strlen(type_rec)-1] = '\0';
+
+	while (i < ligne && strcasecmp(csv_tab[i].nom,type_rec)<=0)
+	{
+		if (strcasecmp(csv_tab[i].nom,type_rec)==0)
+		{
+			affichage(csv_tab,i);
+		}
+		i++;
+	}
+}
+
