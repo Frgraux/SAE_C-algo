@@ -18,12 +18,39 @@ void recherche(CSV csv_tab[],int ligne);
 
 int main()
 {
+	// ------------------ouverture du fichier-------------------------
 	CSV csv_tab[7000];
 	int ligne = ouverture_attribution(csv_tab);
+	int user_choice;
+	// ------------------------------------------------------------------
+	do
+	{
+		printf("-------------------------Bienvenue l'interface de votre annuaire-------------------------\n\n");
+		printf("Menu : \n");
+		printf("\tSaisir 1 si vous souhaiter afficher votre annuaire trié avec vos critaire\n");
+		printf("\tSaisir 2 si vous voulez faire une recherche dans votre annuaire avec vos critaires\n");
+		printf("\tSaisir 3 si vous voulez si vous voulez filtrer\n");
+		printf("\tSaisir 4 si vous voulez faire des modification dans votre annuaire\n");
+		printf("\tSaisir 5 si vous voulez afficher le nombre et la liste des personne avec des infos manquantes\n");
+		printf("\tSaisir 6 si vous voulez quitter...");
+		printf("\n\nVeuillez entrez votre choix : ");
+		scanf("%d",&user_choice);
+		switch (user_choice)
+		{
+		case 1:
+			
+			break;
+		
+		default:
+			break;
+		}
+		
+		
 
-	// for (int i = 0; i < ligne; i++)
-	// 	affichage(csv_tab, i);
-	recherche(csv_tab,ligne);
+
+	} while (user_choice != 5);
+	
+	// recherche_occu_vide(csv_tab,ligne);
 	
 
 	return 0;
@@ -47,79 +74,82 @@ int ouverture_attribution(CSV csv_tab[])
 
 	do
 	{
-		fgets(tableau, sizeof(tableau), annuaire);
+		if (fgets(tableau, sizeof(tableau), annuaire))
 		// reset tu nombre de colone
-		colone = 0;
-		j = 0;
-		for (int i = 0; tableau[i] != '\0'; i++)
 		{
-			if (tableau[i] == ',' | tableau[i] == '\n')
+			colone = 0;
+			j = 0;
+			for (int i = 0; tableau[i] != '\0'; i++)
 			{
-				switch (colone)
+				if (tableau[i] == ',' | tableau[i] == '\n')
 				{
-				case 0:
-					csv_tab[ligne].prenom[j] = '\0';
-					break;
-				case 1:
-					csv_tab[ligne].nom[j] = '\0';
-					break;
-				case 2:
-					csv_tab[ligne].ville[j] = '\0';
-					break;
-				case 3:
-					csv_tab[ligne].codep[j] = '\0';
-					break;
-				case 4:
-					csv_tab[ligne].tel[j] = '\0';
-					break;
-				case 5:
-					csv_tab[ligne].mail[j] = '\0';
+					switch (colone)
+					{
+					case 0:
+						csv_tab[ligne].prenom[j] = '\0';
+						break;
+					case 1:
+						csv_tab[ligne].nom[j] = '\0';
+						break;
+					case 2:
+						csv_tab[ligne].ville[j] = '\0';
+						break;
+					case 3:
+						csv_tab[ligne].codep[j] = '\0';
+						break;
+					case 4:
+						csv_tab[ligne].tel[j] = '\0';
+						break;
+					case 5:
+						csv_tab[ligne].mail[j] = '\0';
 
-					break;
-				case 6:
-					csv_tab[ligne].metier[j] = '\0';
+						break;
+					case 6:
+						csv_tab[ligne].metier[j] = '\0';
 
-					break;
+						break;
+					}
+					j = 0;
+					colone++;
 				}
-				j = 0;
-				colone++;
-			}
 
-			else
-			{
-
-				//    remplis les colones du tab de struct chaque case correpond au partie du strict
-				switch (colone)
+				else
 				{
-				case 0:
-					csv_tab[ligne].prenom[j] = tableau[i];
-					break;
-				case 1:
-					csv_tab[ligne].nom[j] = tableau[i];
-					break;
-				case 2:
-					csv_tab[ligne].ville[j] = tableau[i];
-					break;
-				case 3:
-					csv_tab[ligne].codep[j] = tableau[i];
-					break;
-				case 4:
-					csv_tab[ligne].tel[j] = tableau[i];
-					break;
-				case 5:
-					csv_tab[ligne].mail[j] = tableau[i];
 
-					break;
-				case 6:
-					csv_tab[ligne].metier[j] = tableau[i];
+					//    remplis les colones du tab de struct chaque case correpond au partie du strict
+					switch (colone)
+					{
+					case 0:
+						csv_tab[ligne].prenom[j] = tableau[i];
+						break;
+					case 1:
+						csv_tab[ligne].nom[j] = tableau[i];
+						break;
+					case 2:
+						csv_tab[ligne].ville[j] = tableau[i];
+						break;
+					case 3:
+						csv_tab[ligne].codep[j] = tableau[i];
+						break;
+					case 4:
+						csv_tab[ligne].tel[j] = tableau[i];
+						break;
+					case 5:
+						csv_tab[ligne].mail[j] = tableau[i];
 
-					break;
+						break;
+					case 6:
+						csv_tab[ligne].metier[j] = tableau[i];
+
+						break;
+					}
+					j++;
 				}
-				j++;
 			}
+			ligne++;
 		}
-		ligne++;
 	} while (!feof(annuaire));
+	
 
 	return ligne;
 
@@ -169,7 +199,6 @@ int recherche_occu_vide(CSV csv_tab[], int ligne)
 	{
 		if (strlen(csv_tab[i].prenom) == 0 || strlen(csv_tab[i].nom) == 0 || strlen(csv_tab[i].ville) == 0 || strlen(csv_tab[i].codep) == 0 || strlen(csv_tab[i].tel) == 0 || strlen(csv_tab[i].mail) == 0 || strlen(csv_tab[i].metier) == 0)
 		{
-			printf("Il manque des informations  : ", i);
 			affichage(csv_tab, i);
 			conteur++;
 		}
