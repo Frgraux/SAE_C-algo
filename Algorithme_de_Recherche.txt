@@ -1,0 +1,81 @@
+
+#___________________________________ Recherche Séquentielle ___________________________________#
+
+
+#___________ Pour un tableau non trié ___________#
+
+
+def rechercheseq(tab: Tableau de X, e:X) -> int:
+"""
+ : Entree tab : tableau de X
+ : Entree e : X
+ : Sortie i : int
+"""
+# Debut
+	i = 0
+	while i < tab.size:
+		if tab[i]==e:
+			return i
+		#Endif
+		i=i+1
+	#Endwhile
+	return(-1)
+# Fin
+
+
+#____________ Pour un tableau trié ____________#
+
+def rechercheseqtriee(tab: Tableau de X, e:X) -> int:
+"""
+	: Entrée tab : tableau de X
+	: Entrée e : X
+	: Sortie i : int
+	: Precondition
+	:   Le tableau n'est pas vide
+	:   Pour tout i compris entre 0 et tab-2, on a tab[i]<=tab[i+1]
+"""
+#Debut
+	i = 0
+	while i < tab.size and tab[i]<e:
+		i = i+1
+	#Endwhile
+	
+	if tab[i]==e:
+		return(i)
+	#Endif
+
+	return(-1)
+#Fin
+
+
+#___________________________________ Recherche Dicotomique ___________________________________#
+
+
+def recherchedico(tab:tableau de X, e:X) -> int:
+"""
+: Entrée tab:tableau de X
+: Entrée e : X
+: Sortie milieu : int
+: Declaration
+:   ide,ifi : int
+: Precondition
+:   Le tableau n'est pas vide
+"""
+#Debut
+	ide = 0
+	ifi = tab.size-1
+	
+	while ide<=ifi:
+		milieu = (ide+ifi)//2
+		if tab[milieu] == e:
+			return(milieu)
+		#endif
+		
+		if tab[milieu] < e:
+			ide = milieu+1
+		else:
+			idi = milieu-1
+		#elif
+	#enwhile
+	return(-1)
+#fin
