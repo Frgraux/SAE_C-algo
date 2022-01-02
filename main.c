@@ -15,6 +15,7 @@ char tri_liste(CSV csv_tab[], int ligne);
 int recherche_occu_vide(CSV csv_tab[], int ligne);
 void affichage(CSV csv_tab[], int ligne);
 void recherche(CSV csv_tab[],int ligne);
+char tri_liste_indirect(CSV csv_tab[],int ligne,int tab[]);
 
 int main()
 {
@@ -22,7 +23,20 @@ int main()
 	CSV csv_tab[7000];
 	int ligne = ouverture_attribution(csv_tab);
 	int user_choice;
-	// ------------------------------------------------------------------
+	int indice[7000];
+	for (int i = 0; i < 7000; i++)
+	{
+		indice[i]=i;
+	}
+	
+	tri_liste_indirect(csv_tab,ligne,indice);
+	for (int i = 0; i < 5000; i++)
+	{
+		affichage(csv_tab,indice[i]);
+	}
+	
+	
+	// -----------------------------------------------------------------------------------------------------------
 	do
 	{
 		printf("-------------------------Bienvenue l'interface de votre annuaire-------------------------\n\n");
@@ -50,9 +64,6 @@ int main()
 
 	} while (user_choice != 5);
 	
-	// recherche_occu_vide(csv_tab,ligne);
-	
-
 	return 0;
 }
 // ---------------fonction----------------
@@ -182,6 +193,26 @@ char tri_liste(CSV csv_tab[], int ligne)
 		csv_tab[j + 1] = ppt;
 		i = i + 1;
 	}
+}
+
+char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[])
+{
+	int i=1;
+	int j;
+	int petit;
+	while (i<ligne)
+	{
+		petit = indice[i];
+		j=i-1;
+		while (j >= 0 && strcasecmp(csv_tab[petit].nom, csv_tab[indice[j]].nom)<0)
+		{
+			indice[j+1] = indice[j];
+			j=j-1;
+		}
+		indice[j+1] = petit;
+		i=i+1;
+	}
+	
 }
 
 void affichage(CSV csv_tab[], int ligne)
