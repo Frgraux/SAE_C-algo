@@ -15,7 +15,9 @@ char tri_liste(CSV csv_tab[], int ligne);
 int recherche_occu_vide(CSV csv_tab[], int ligne);
 void affichage(CSV csv_tab[], int ligne);
 void recherche(CSV csv_tab[],int ligne);
-char tri_liste_indirect(CSV csv_tab[],int ligne,int tab[]);
+char tri_liste_indirect(CSV csv_tab[],int ligne,int tab[],int rang);
+char* champ(CSV *personne,int rang);
+int ajout(CSV csv_tab[],int ligne);
 
 int main()
 {
@@ -24,45 +26,48 @@ int main()
 	int ligne = ouverture_attribution(csv_tab);
 	int user_choice;
 	int indice[7000];
+	int lechamp = 6;
+	
 	for (int i = 0; i < 7000; i++)
 	{
 		indice[i]=i;
 	}
+	ligne=ajout(csv_tab,ligne);
 	
-	tri_liste_indirect(csv_tab,ligne,indice);
-	for (int i = 0; i < 5000; i++)
+	// tri_liste_indirect(csv_tab,ligne,indice,0);
+	for (int i = 0; i < ligne; i++)
 	{
 		affichage(csv_tab,indice[i]);
 	}
 	
 	
 	// -----------------------------------------------------------------------------------------------------------
-	do
-	{
-		printf("-------------------------Bienvenue l'interface de votre annuaire-------------------------\n\n");
-		printf("Menu : \n");
-		printf("\tSaisir 1 si vous souhaiter afficher votre annuaire trié avec vos critaire\n");
-		printf("\tSaisir 2 si vous voulez faire une recherche dans votre annuaire avec vos critaires\n");
-		printf("\tSaisir 3 si vous voulez si vous voulez filtrer\n");
-		printf("\tSaisir 4 si vous voulez faire des modification dans votre annuaire\n");
-		printf("\tSaisir 5 si vous voulez afficher le nombre et la liste des personne avec des infos manquantes\n");
-		printf("\tSaisir 6 si vous voulez quitter...");
-		printf("\n\nVeuillez entrez votre choix : ");
-		scanf("%d",&user_choice);
-		switch (user_choice)
-		{
-		case 1:
+	// do
+	// {
+	// 	printf("-------------------------Bienvenue l'interface de votre annuaire-------------------------\n\n");
+	// 	printf("Menu : \n");
+	// 	printf("\tSaisir 1 si vous souhaiter afficher votre annuaire trié avec vos critaire\n");
+	// 	printf("\tSaisir 2 si vous voulez faire une recherche dans votre annuaire avec vos critaires\n");
+	// 	printf("\tSaisir 3 si vous voulez si vous voulez filtrer\n");
+	// 	printf("\tSaisir 4 si vous voulez faire des modification dans votre annuaire\n");
+	// 	printf("\tSaisir 5 si vous voulez afficher le nombre et la liste des personne avec des infos manquantes\n");
+	// 	printf("\tSaisir 6 si vous voulez quitter...");
+	// 	printf("\n\nVeuillez entrez votre choix : ");
+	// 	scanf("%d",&user_choice);
+	// 	switch (user_choice)
+	// 	{
+	// 	case 1:
 			
-			break;
+	// 		break;
 		
-		default:
-			break;
-		}
+	// 	default:
+	// 		break;
+	// 	}
 		
 		
 
 
-	} while (user_choice != 5);
+	// } while (user_choice != 5);
 	
 	return 0;
 }
@@ -94,66 +99,14 @@ int ouverture_attribution(CSV csv_tab[])
 			{
 				if (tableau[i] == ',' | tableau[i] == '\n')
 				{
-					switch (colone)
-					{
-					case 0:
-						csv_tab[ligne].prenom[j] = '\0';
-						break;
-					case 1:
-						csv_tab[ligne].nom[j] = '\0';
-						break;
-					case 2:
-						csv_tab[ligne].ville[j] = '\0';
-						break;
-					case 3:
-						csv_tab[ligne].codep[j] = '\0';
-						break;
-					case 4:
-						csv_tab[ligne].tel[j] = '\0';
-						break;
-					case 5:
-						csv_tab[ligne].mail[j] = '\0';
-
-						break;
-					case 6:
-						csv_tab[ligne].metier[j] = '\0';
-
-						break;
-					}
+					champ(&csv_tab[ligne],colone)[j]='\0';
 					j = 0;
 					colone++;
 				}
 
 				else
 				{
-
-					//    remplis les colones du tab de struct chaque case correpond au partie du strict
-					switch (colone)
-					{
-					case 0:
-						csv_tab[ligne].prenom[j] = tableau[i];
-						break;
-					case 1:
-						csv_tab[ligne].nom[j] = tableau[i];
-						break;
-					case 2:
-						csv_tab[ligne].ville[j] = tableau[i];
-						break;
-					case 3:
-						csv_tab[ligne].codep[j] = tableau[i];
-						break;
-					case 4:
-						csv_tab[ligne].tel[j] = tableau[i];
-						break;
-					case 5:
-						csv_tab[ligne].mail[j] = tableau[i];
-
-						break;
-					case 6:
-						csv_tab[ligne].metier[j] = tableau[i];
-
-						break;
-					}
+					champ(&csv_tab[ligne],colone)[j]=tableau[i];
 					j++;
 				}
 			}
@@ -164,7 +117,7 @@ int ouverture_attribution(CSV csv_tab[])
 
 	return ligne;
 
-	// recherche_occu_vide(csv_tab,ligne);
+
 }
 
 CSV recherche_index(CSV csv_tab[], int index)
@@ -195,7 +148,7 @@ char tri_liste(CSV csv_tab[], int ligne)
 	}
 }
 
-char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[])
+char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[],int rang)
 {
 	int i=1;
 	int j;
@@ -204,7 +157,7 @@ char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[])
 	{
 		petit = indice[i];
 		j=i-1;
-		while (j >= 0 && strcasecmp(csv_tab[petit].nom, csv_tab[indice[j]].nom)<0)
+		while (j >= 0 && strcasecmp(champ(&csv_tab[petit],rang), champ(&csv_tab[indice[j]],rang))<0)
 		{
 			indice[j+1] = indice[j];
 			j=j-1;
@@ -256,3 +209,73 @@ void recherche(CSV csv_tab[],int ligne)
 	}
 }
 
+char* champ(CSV *personne,int rang)
+{
+	switch (rang)
+	{
+	case 0:
+		return (*personne).prenom;
+	case 1:
+		return (*personne).nom;
+	case 2:
+		return (*personne).ville;
+	case 3:
+		return (*personne).codep;
+	case 4:
+		return (*personne).tel;
+	case 5:
+		return (*personne).mail;
+	case 6:
+		return (*personne).metier;
+	}
+}
+
+int ajout(CSV csv_tab[],int ligne)
+{
+	
+	printf("Veuillez entrer le prenom de la personne : ");
+	fgets(champ(&csv_tab[ligne],0),50,stdin);
+	if (champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]=='\n')
+	{
+		champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]='\0';
+	}
+	printf("Veuillez entrez le nom de la personne : ");
+	fgets(champ(&csv_tab[ligne],1),50,stdin);
+	if (champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]=='\n')
+	{
+		champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]='\0';
+	}
+	printf("Veuillez entrez la ville de la personne : ");
+	fgets(champ(&csv_tab[ligne],2),50,stdin);
+	if (champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]=='\n')
+	{
+		champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]='\0';
+	}
+	printf("Veuillez entrez le code posatle de la personne : ");
+	fgets(champ(&csv_tab[ligne],3),50,stdin);
+	if (champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]=='\n')
+	{
+		champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]='\0';
+	}
+	printf("Veuillez entrez le tel de la personne : ");
+	fgets(champ(&csv_tab[ligne],4),50,stdin);
+	if (champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]=='\n')
+	{
+		champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]='\0';
+	}
+	printf("Veuillez entrez la mail de la personne : ");
+	fgets(champ(&csv_tab[ligne],5),50,stdin);
+	if (champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]=='\n')
+	{
+		champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]='\0';
+	}
+	printf("Veuillez entrez la metier de la personne : ");
+	fgets(champ(&csv_tab[ligne],6),50,stdin);
+	if (champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]=='\n')
+	{
+		champ(&csv_tab[ligne],0)[strlen(champ(&csv_tab[ligne],0))-1]='\0';
+	}
+	return ligne+1;
+
+	// faire une boucle qui incremente pour faire moins de lignes
+}
