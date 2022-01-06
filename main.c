@@ -15,7 +15,7 @@ CSV recherche_index(CSV csv_tab[], int index);
 char tri_liste(CSV csv_tab[], int ligne);
 int recherche_occu_vide(CSV csv_tab[], int ligne);
 void affichage(CSV csv_tab[], int ligne);
-void recherche(CSV csv_tab[],int ligne);
+void recherche(CSV csv_tab[],int ligne,int indice[],int rang);
 char tri_liste_indirect(CSV csv_tab[],int ligne,int tab[],int rang);
 char* champ(CSV *personne,int rang);
 int ajout(CSV csv_tab[],int ligne);
@@ -37,7 +37,6 @@ int main()
 		indice[i]=i;
 	}
 	
-	// recherche(csv_tab,ligne);
 	
 	// -----------------------------------------------------------------------------------------------------------
 	do
@@ -57,34 +56,34 @@ int main()
 		switch (user_choice)
 		{
 		case 0:
-			printf("\tSi vous voulez trier par le prenom taper 0\n");
-			printf("\tSi vous voulez trier par le nom taper 1\n");
-			printf("\tSi vous voulez trier par le ville taper 2\n");
-			printf("\tSi vous voulez trier par le codep taper 3\n");
-			printf("\tSi vous voulez trier par le tel taper 4\n");
-			printf("\tSi vous voulez trier par le mail taper 5\n");
-			printf("\tSi vous voulez trier par le metier taper 6\n");
+			printf("\tSi vous voulez trier par le prenom taper 1\n");
+			printf("\tSi vous voulez trier par le nom taper 2\n");
+			printf("\tSi vous voulez trier par le ville taper 3\n");
+			printf("\tSi vous voulez trier par le codep taper 4\n");
+			printf("\tSi vous voulez trier par le tel taper 5\n");
+			printf("\tSi vous voulez trier par le mail taper 6\n");
+			printf("\tSi vous voulez trier par le metier taper 7\n");
 			printf("Entrez votre choix : ");
 			scanf("%d",&type_colone);
 			
-			tri_liste_indirect(csv_tab,ligne,indice,type_colone);
+			tri_liste_indirect(csv_tab,ligne,indice,type_colone-1);
 			for (int i = 0; i < ligne; i++)
 			{
 				affichage(csv_tab,indice[i]);
 			}
 			break;
 		case 1:
-			// printf("\tSi vous voulez rechercher par le prenom taper 0\n");
-			// printf("\tSi vous voulez rechercher par le nom taper 1\n");
-			// printf("\tSi vous voulez rechercher par le ville taper 2\n");
-			// printf("\tSi vous voulez rechercher par le codep taper 3\n");
-			// printf("\tSi vous voulez rechercher par le tel taper 4\n");
-			// printf("\tSi vous voulez rechercher par le mail taper 5\n");
-			// printf("\tSi vous voulez rechercher par le metier taper 6\n");
-			// printf("Entrez votre choix : ");
-			// scanf("%d",&type_colone);
+			printf("\tSi vous voulez rechercher par le prenom taper 1\n");
+			printf("\tSi vous voulez rechercher par le nom taper 2\n");
+			printf("\tSi vous voulez rechercher par le ville taper 3\n");
+			printf("\tSi vous voulez rechercher par le codep taper 4\n");
+			printf("\tSi vous voulez rechercher par le tel taper 5\n");
+			printf("\tSi vous voulez rechercher par le mail taper 6\n");
+			printf("\tSi vous voulez rechercher par le metier taper 7\n");
+			printf("Entrez votre choix : ");
+			scanf("%d",&type_colone);
 			getchar();
-			recherche(csv_tab,ligne);
+			recherche(csv_tab,ligne,indice,type_colone-1);
 			break;
 		case 2:
 				
@@ -228,20 +227,20 @@ int recherche_occu_vide(CSV csv_tab[], int ligne)
 	printf("\nil y a %d personne ou il manque des information\n", conteur);
 }
 
-void recherche(CSV csv_tab[],int ligne)
+void recherche(CSV csv_tab[],int ligne,int indice[],int rang)
 {
-	tri_liste(csv_tab,ligne);
+	tri_liste_indirect(csv_tab,ligne,indice,rang);
 	int i=0;
 	char type_rec[50];
 	printf("Entrez ce que vous souhaiter rechercher : ");
 	fgets(type_rec,sizeof(type_rec),stdin);
 	type_rec[strlen(type_rec)-1] = '\0';
 
-	while (i < ligne && strcasecmp(csv_tab[i].nom,type_rec)<=0)
+	while (i < ligne && strcasecmp(champ(&csv_tab[indice[i]],rang),type_rec)<=0)
 	{
-		if (strcasecmp(csv_tab[i].nom,type_rec)==0)
+		if (strcasecmp(champ(&csv_tab[indice[i]],rang),type_rec)==0)
 		{
-			affichage(csv_tab,i);
+			affichage(csv_tab,indice[i]);
 		}
 		i++;
 	}
