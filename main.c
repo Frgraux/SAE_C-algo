@@ -19,7 +19,7 @@ void recherche(CSV csv_tab[],int ligne,int indice[],int rang);
 char tri_liste_indirect(CSV csv_tab[],int ligne,int tab[],int rang);
 char* champ(CSV *personne,int rang);
 int ajout(CSV csv_tab[],int ligne);
-void filtre(CSV csv_tab[],int ligne,char chaine,int rang,int indice[],int type_filtre);
+void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type_filtre);
 
 int main()
 {
@@ -30,7 +30,7 @@ int main()
 	int indice[7000];
 	int type_colone;
 	int index_supr;
-	char chaine = 'be';
+	char chaine[]="bec";
 	
 	
 	
@@ -89,6 +89,7 @@ int main()
 			recherche(csv_tab,ligne,indice,type_colone-1);
 			break;
 		case 2:
+			getchar();
 				filtre(csv_tab,ligne,chaine,2,indice,2);
 			break;
 		case 3:
@@ -338,16 +339,17 @@ void supretion(CSV csv_tab,int ligne,int index)
 	// scanf("%d",&);
 }
 
-void filtre(CSV csv_tab[],int ligne,char chaine,int rang,int indice[],int type_filtre)
+void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type_filtre)
 {
 	int i;
 	for (i=0; i < ligne; i++)
 	{
+		char * pt_chaine=strstr(champ(&csv_tab[indice[i]],rang),chaine);
 		if (strcasecmp(champ(&csv_tab[indice[i]],rang),chaine)==0 && type_filtre==1)
 		{
 			affichage(csv_tab,indice[i]);
 		}
-		if (strstr(champ(&csv_tab[indice[i]],chaine),rang) && type_filtre==2)
+		if (pt_chaine!=NULL && type_filtre==2)
 		{
 			affichage(csv_tab,indice[i]);
 		}
