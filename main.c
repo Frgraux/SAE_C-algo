@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #define fic "annuaire5000.csv"
-const int espace[] = { 25,25,25,10,20,45,20 };
+const int espace[] = { 15,15,15,15,20,45,20 };
 
 // création de la struct csv
 typedef struct csv
@@ -19,6 +19,7 @@ void recherche(CSV csv_tab[],int ligne,int indice[],int rang);
 char tri_liste_indirect(CSV csv_tab[],int ligne,int tab[],int rang);
 char* champ(CSV *personne,int rang);
 int ajout(CSV csv_tab[],int ligne);
+void filtre(CSV csv_tab[],int ligne,char chaine,int rang,int indice[],int type_filtre);
 
 int main()
 {
@@ -29,6 +30,8 @@ int main()
 	int indice[7000];
 	int type_colone;
 	int index_supr;
+	char chaine = 'be';
+	
 	
 	
 	
@@ -86,7 +89,7 @@ int main()
 			recherche(csv_tab,ligne,indice,type_colone-1);
 			break;
 		case 2:
-				
+				filtre(csv_tab,ligne,chaine,2,indice,2);
 			break;
 		case 3:
 			getchar();
@@ -95,7 +98,19 @@ int main()
 			printf("\nla personne a bien etait ajouter a l annuaire\n\n");
 			break;
 		case 4:
-			
+			printf("veuillez entrez une information pour trouver la personne que vous voulez supprimer\n\n");
+			printf("\tSi vous voulez rechercher par le prenom taper 1\n");
+			printf("\tSi vous voulez rechercher par le nom taper 2\n");
+			printf("\tSi vous voulez rechercher par le ville taper 3\n");
+			printf("\tSi vous voulez rechercher par le codep taper 4\n");
+			printf("\tSi vous voulez rechercher par le tel taper 5\n");
+			printf("\tSi vous voulez rechercher par le mail taper 6\n");
+			printf("\tSi vous voulez rechercher par le metier taper 7\n\n");
+			printf("Entrez votre choix : ");
+			scanf("%d",&type_colone);
+			recherche(csv_tab,ligne,indice,type_colone);
+
+
 			break;
 		case 5:
 			recherche_occu_vide(csv_tab,ligne);
@@ -207,7 +222,7 @@ char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[],int rang)
 
 void affichage(CSV csv_tab[], int ligne)
 {
-	printf("Information de la personne : %*s | %*s | %*s | %*s | %*s | %*s | %*s |\n",espace[0],csv_tab[ligne].nom,espace[1],csv_tab[ligne].prenom,espace[2],csv_tab[ligne].ville,espace[3],csv_tab[ligne].codep,espace[4],csv_tab[ligne].tel,espace[5],csv_tab[ligne].mail,espace[6],csv_tab[ligne].metier);
+	printf("\nPersonne : %d | %*s | %*s | %*s | %*s | %*s | %*s | %*s |\n",ligne,espace[0],csv_tab[ligne].nom,espace[1],csv_tab[ligne].prenom,espace[2],csv_tab[ligne].ville,espace[3],csv_tab[ligne].codep,espace[4],csv_tab[ligne].tel,espace[5],csv_tab[ligne].mail,espace[6],csv_tab[ligne].metier);
 }
 
 int recherche_occu_vide(CSV csv_tab[], int ligne)
@@ -319,5 +334,24 @@ int ajout(CSV csv_tab[],int ligne)
 
 void supretion(CSV csv_tab,int ligne,int index)
 {
-	printf("Entrez la ligne qui correspond a votre choix de supresion : ");// scanf("%d",&);
+	printf("Entrez la ligne qui correspond a votre choix de supresion : ");
+	// scanf("%d",&);
+}
+
+void filtre(CSV csv_tab[],int ligne,char chaine,int rang,int indice[],int type_filtre)
+{
+	int i;
+	for (i=0; i < ligne; i++)
+	{
+		if (strcasecmp(champ(&csv_tab[indice[i]],rang),chaine)==0 && type_filtre==1)
+		{
+			affichage(csv_tab,indice[i]);
+		}
+		if (strstr(champ(&csv_tab[indice[i]],chaine),rang) && type_filtre==2)
+		{
+			affichage(csv_tab,indice[i]);
+		}
+		
+	}
+	
 }
