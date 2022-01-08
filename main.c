@@ -127,11 +127,20 @@ int main()
 // ---------------fonction----------------
 int ouverture_attribution(CSV csv_tab[])
 {
+	// redigé par Graux François
+	// """
+	// Entre csv_tab : tableau de structure
+	// sortie ligne :int
+	// declaration:
+	// tableau :char
+	// colone,ligne,j : int
+	// post condition:
+	// Permet de remplir le tableau de structure à partir du CSV en utilisant ma fonction champ pour remplir les bonnes informations
+	// """
 	char tableau[250];
 	int colone = 0;
 	int j = 0;
 	int ligne = 0;
-	// CSV (*pt_annuaire)[]=&csv_tab;
 
 	FILE *annuaire = fopen(fic, "r");
 
@@ -144,7 +153,6 @@ int ouverture_attribution(CSV csv_tab[])
 	do
 	{
 		if (fgets(tableau, sizeof(tableau), annuaire))
-		// reset tu nombre de colone
 		{
 			colone = 0;
 			j = 0;
@@ -174,15 +182,29 @@ int ouverture_attribution(CSV csv_tab[])
 }
 
 CSV recherche_index(CSV csv_tab[], int index)
-// redigé par Graux François
-
 {
+	// redigé par Graux François
+	// """
+	// Entre csv_tab :tableau de structure ,index : int
+	// sortie csv_tab[index]
+	// post condition:
+	// pemret de faire une recherche dans l'annuaire avec sont index et revoie la ligne correspondante
+	// """
 	printf("[%s]\n", csv_tab[index].nom);
 }
 
 char tri_liste(CSV csv_tab[], int ligne)
-// redigé par Graux François
 {
+	// redigé par Graux François
+	// """
+	// Entre ligne :int
+	// Entre/sortie csv_tab: tableau de structure 
+	// declaration :
+	// i,j :int
+	// ppt :CSV
+	// post condition :
+	// permet de trié le tableau de structure de manière alphabétique par rapport au nom
+	// """
 	int j;
 	int i;
 	CSV ppt;
@@ -270,7 +292,6 @@ void recherche(CSV csv_tab[],int ligne,int indice[],int rang)
 	// rédiger par François Graux
 	// """
 	// Entre csv_tab:tableau de structure char ,ligne:int , indice : tableau de int (indice pour le tri indirect) , rang : int
-	// sortie csv_tab
 	//declaration:
 	// char type_rec[]
 	//int i
@@ -326,8 +347,8 @@ int ajout(CSV csv_tab[],int ligne)
 {
 	// rédiger par François Graux
 	// """
-	// Entre csv_tab:tableau de structure char, ligne :int (nombre de ligne de csv_tab)
-	// entre /sortie ligne :int
+	// Entre char, ligne :int (nombre de ligne de csv_tab)
+	// entre /sortie csv_tab:tableau de structure,ligne :int
 	// postcondition:
 	// 	Permet d'ajouter une nouvelle personne à l'annuaire ainsi que de retouner le nombre de ligne + 1 et remplace les \n par des \0
 	// """
@@ -390,7 +411,6 @@ void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type
 	// rédiger par François Graux
 	// """
 	// Entre csv_tav :char tableau de structure char,Ligne:int du nb de ligne de la strcuture,rang :int, indice:tableau de int ,type_filtre:int
-	// sortie valeur de csv_tab
 	// declaration:
 	// int i
 	//post condition:
@@ -407,12 +427,10 @@ void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type
 		{
 			affichage(csv_tab,indice[i]);
 		}
-		else if (strcasecmp())
+		else if (strcasecmp(chaine,strlen(champ(&csv_tab[indice[i]],rang)-strlen(chaine)))==0 && type_filtre==3)
 		{
 			affichage(csv_tab,indice[i]);
 		}
-		
-		
 	}
 	
 }
