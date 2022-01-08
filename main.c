@@ -203,6 +203,15 @@ char tri_liste(CSV csv_tab[], int ligne)
 
 char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[],int rang)
 {
+	// rédiger par François Graux
+	// """
+	// entre ligne :int (nombre de ligne de csv_tab) , indice :tableau de int ,rang :int
+	// entre/sortie csv_tab: tableau de structure char
+	// declaration:
+	// int i,j,petit
+	// post condition:
+	// Permet de trié le tableau de structure de maniere alphabetique de plusieur maniere en fonction des besoin de l'utilisateur
+	// """
 	int i=1;
 	int j;
 	int petit;
@@ -223,13 +232,26 @@ char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[],int rang)
 
 void affichage(CSV csv_tab[], int ligne)
 {
+	// rédiger par François Graux
+	// """
+	// Entre csv_tab :tableau de stucture char , ligne int (nombre de ligne de csv_tab)
+	// post condition:
+	// permet l'affichage des lignes en fonction de nos besoins
+	// """
 	printf("Personne : %4d | %*s | %*s | %*s | %*s | %*s | %*s | %*s |\n",ligne,espace[0],csv_tab[ligne].nom,espace[1],csv_tab[ligne].prenom,espace[2],csv_tab[ligne].ville,espace[3],csv_tab[ligne].codep,espace[4],csv_tab[ligne].tel,espace[5],csv_tab[ligne].mail,espace[6],csv_tab[ligne].metier);
 }
 
 int recherche_occu_vide(CSV csv_tab[], int ligne)
-// rédiger par François Graux
-// ligne = taille du tableau
 {
+	// rédiger par François Graux
+	// """
+	// Entre csv_tab : tableau de structure char , ligne :int (nombre de ligne de csv_tab)
+	// sorti csv_tab
+	// declaration;
+	// int j,contenuer
+	// post condition:
+	// Permet d'afficher les informations ainsi que le nommbre des lignes ou il manque des inforamtion dans la tableau de structure 
+	// """
 	int j;
 	int conteur;
 	for (int i = 0; i < ligne; i++)
@@ -245,6 +267,16 @@ int recherche_occu_vide(CSV csv_tab[], int ligne)
 
 void recherche(CSV csv_tab[],int ligne,int indice[],int rang)
 {
+	// rédiger par François Graux
+	// """
+	// Entre csv_tab:tableau de structure char ,ligne:int , indice : tableau de int (indice pour le tri indirect) , rang : int
+	// sortie csv_tab
+	//declaration:
+	// char type_rec[]
+	//int i
+	// post condition:
+	// Permet d'effectuer une recherche dans toute le tableau sur un element entrer en argument par l'utilisateur et le type d'element et choisi par l'utilisateur
+	// """
 	tri_liste_indirect(csv_tab,ligne,indice,rang);
 	int i=0;
 	char type_rec[50];
@@ -264,6 +296,13 @@ void recherche(CSV csv_tab[],int ligne,int indice[],int rang)
 
 char* champ(CSV *personne,int rang)
 {
+	// rédiger par François Graux
+	// """
+	// entre rang : int
+	// entre/sortie *personne : pointeur de CSV 
+	// post condition :
+	// Permet de renvoyer l'adress d'un colone de la structure en fonction de la valeur que l'utilsateur entre en parametre
+	// """
 	switch (rang)
 	{
 	case 0:
@@ -285,6 +324,13 @@ char* champ(CSV *personne,int rang)
 
 int ajout(CSV csv_tab[],int ligne)
 {
+	// rédiger par François Graux
+	// """
+	// Entre csv_tab:tableau de structure char, ligne :int (nombre de ligne de csv_tab)
+	// entre /sortie ligne :int
+	// postcondition:
+	// 	Permet d'ajouter une nouvelle personne à l'annuaire ainsi que de retouner le nombre de ligne + 1 et remplace les \n par des \0
+	// """
 	
 	printf("Veuillez entrer le prenom de la personne : ");
 	fgets(champ(&csv_tab[ligne],0),50,stdin);
@@ -341,6 +387,15 @@ void supretion(CSV csv_tab,int ligne,int index)
 
 void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type_filtre)
 {
+	// rédiger par François Graux
+	// """
+	// Entre csv_tav :char tableau de structure char,Ligne:int du nb de ligne de la strcuture,rang :int, indice:tableau de int ,type_filtre:int
+	// sortie valeur de csv_tab
+	// declaration:
+	// int i
+	//post condition:
+	//Permet de trouver si une chaine de caratere ou une sous chaine de caractere ce trouve dans le tableau de strucre a une ligne donné
+	// """
 	int i;
 	for (i=0; i < ligne; i++)
 	{
@@ -352,6 +407,11 @@ void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type
 		{
 			affichage(csv_tab,indice[i]);
 		}
+		else if (strcasecmp())
+		{
+			affichage(csv_tab,indice[i]);
+		}
+		
 		
 	}
 	
