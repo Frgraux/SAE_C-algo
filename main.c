@@ -30,7 +30,7 @@ int main()
 	int indice[7000];
 	int type_colone;
 	int index_supr;
-	char chaine[]="bec";
+	char chaine[]="Bec";
 	
 	
 	
@@ -90,7 +90,7 @@ int main()
 			break;
 		case 2:
 			getchar();
-				filtre(csv_tab,ligne,chaine,2,indice,2);
+			filtre(csv_tab,ligne,chaine,1,indice,2);
 			break;
 		case 3:
 			getchar();
@@ -223,7 +223,7 @@ char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[],int rang)
 
 void affichage(CSV csv_tab[], int ligne)
 {
-	printf("\nPersonne : %d | %*s | %*s | %*s | %*s | %*s | %*s | %*s |\n",ligne,espace[0],csv_tab[ligne].nom,espace[1],csv_tab[ligne].prenom,espace[2],csv_tab[ligne].ville,espace[3],csv_tab[ligne].codep,espace[4],csv_tab[ligne].tel,espace[5],csv_tab[ligne].mail,espace[6],csv_tab[ligne].metier);
+	printf("Personne : %4d | %*s | %*s | %*s | %*s | %*s | %*s | %*s |\n",ligne,espace[0],csv_tab[ligne].nom,espace[1],csv_tab[ligne].prenom,espace[2],csv_tab[ligne].ville,espace[3],csv_tab[ligne].codep,espace[4],csv_tab[ligne].tel,espace[5],csv_tab[ligne].mail,espace[6],csv_tab[ligne].metier);
 }
 
 int recherche_occu_vide(CSV csv_tab[], int ligne)
@@ -344,12 +344,11 @@ void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type
 	int i;
 	for (i=0; i < ligne; i++)
 	{
-		char * pt_chaine=strstr(champ(&csv_tab[indice[i]],rang),chaine);
 		if (strcasecmp(champ(&csv_tab[indice[i]],rang),chaine)==0 && type_filtre==1)
 		{
 			affichage(csv_tab,indice[i]);
 		}
-		if (pt_chaine!=NULL && type_filtre==2)
+		else if (strstr(champ(&csv_tab[indice[i]],rang),chaine)!=NULL && type_filtre==2)
 		{
 			affichage(csv_tab,indice[i]);
 		}
