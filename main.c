@@ -34,7 +34,8 @@ int main()
 		printf("\tSaisir 3 si vous voulez ajouter une personne a l'annuaire\n");
 		printf("\tSaisir 4 si vous voulez supprimer une personne a l'annuaire\n");
 		printf("\tSaisir 5 si vous voulez afficher le nombre et la liste des personne avec des infos manquantes\n");
-		printf("\tSaisir 6 si vous voulez quitter...");
+		printf("\tSaisir 6 si vous voulez faire une sauvgarde de votre annuaire dans un autre fichier\n");
+		printf("\tSaisir 7 si vous voulez quitter...");
 		printf("\n\nVeuillez entrez votre choix : ");
 		scanf("%d",&user_choice);
 	
@@ -97,10 +98,13 @@ int main()
 		case 5:
 			recherche_occu_vide(csv_tab,ligne);
 			break;
+		case 6:
+			ecriture(csv_tab,ligne);
+			break;
 		default:
 			break;
 		}
-	} while (user_choice != 6);
+	} while (user_choice != 7);
 	
 	return 0;
 }
