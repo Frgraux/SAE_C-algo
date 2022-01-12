@@ -1,6 +1,5 @@
 #ifndef ACTIONS_H
 #define ACTIONS_H
-#define fic "annuaire5000.csv"
 
 
 typedef struct csv
@@ -103,6 +102,8 @@ void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type
 	permet de remplir un fichier crée dans la fonction avec une copie du tableau de structure csv_tab
  */
 int ecriture(CSV csv_tab[],int ligne);
+void suppression(CSV csv_tab[],int *ligne);
+void maj(CSV csv_tab[]);
 #endif
 
 

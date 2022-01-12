@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "foo.h"
-#define fic "annuaire5000.csv"
 #define save "sauvgarde.csv"
 
 const int espace[] = { 20,20,20,15,20,45,20 };
@@ -39,16 +39,22 @@ char* champ(CSV *personne,int rang)
 
 void affichage(CSV csv_tab[], int ligne)
 {
-	printf("Personne : %4d | %*s | %*s | %*s | %*s | %*s | %*s | %*s |\n",ligne,espace[0],csv_tab[ligne].nom,espace[1],csv_tab[ligne].prenom,espace[2],csv_tab[ligne].ville,espace[3],csv_tab[ligne].codep,espace[4],csv_tab[ligne].tel,espace[5],csv_tab[ligne].mail,espace[6],csv_tab[ligne].metier);
+	printf("Personne : %4d | %*s | %*s | %*s | %*s | %*s | %*s | %*s |\n",ligne+1,espace[0],csv_tab[ligne].nom,espace[1],csv_tab[ligne].prenom,espace[2],csv_tab[ligne].ville,espace[3],csv_tab[ligne].codep,espace[4],csv_tab[ligne].tel,espace[5],csv_tab[ligne].mail,espace[6],csv_tab[ligne].metier);
 }
 
 CSV recherche_index(CSV csv_tab[], int index)
 {
+	clock_t begin=clock();
 	printf("[%s]\n", csv_tab[index].nom);
+	clock_t end=clock();
+	unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
+    printf( "Finished in %ld ms\n", millis );
+	system("pause");
 }
 
 char tri_liste(CSV csv_tab[], int ligne)
 {
+	clock_t begin=clock();
 	int j;
 	int i;
 	CSV ppt;
@@ -65,10 +71,15 @@ char tri_liste(CSV csv_tab[], int ligne)
 		csv_tab[j + 1] = ppt;
 		i = i + 1;
 	}
+	clock_t end=clock();
+	unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
+    printf( "Finished in %ld ms\n", millis );
+	system("pause");
 }
 
 char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[],int rang)
 {
+	clock_t begin=clock();
 	int i=1;
 	int j;
 	int petit;
@@ -84,16 +95,21 @@ char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[],int rang)
 		indice[j+1] = petit;
 		i=i+1;
 	}
-	
+	clock_t end=clock();
+	unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
+    printf( "Finished in %ld ms\n", millis );
+	system("pause");
 }
 
 void recherche(CSV csv_tab[],int ligne,int indice[],int rang)
 {
+	
 	tri_liste_indirect(csv_tab,ligne,indice,rang);
 	int i=0;
 	char type_rec[50];
 	printf("Entrez ce que vous souhaiter rechercher : ");
 	fgets(type_rec,sizeof(type_rec),stdin);
+	clock_t begin=clock();
 	type_rec[strlen(type_rec)-1] = '\0';
 
 	while (i < ligne && strcasecmp(champ(&csv_tab[indice[i]],rang),type_rec)<=0)
@@ -104,12 +120,16 @@ void recherche(CSV csv_tab[],int ligne,int indice[],int rang)
 		}
 		i++;
 	}
+	clock_t end=clock();
+	unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
+    printf( "Finished in %ld ms\n", millis );
 }
 
 int recherche_occu_vide(CSV csv_tab[], int ligne)
 {
+	clock_t begin=clock();
 	int j;
-	int conteur;
+	int conteur = 0;
 	for (int i = 0; i < ligne; i++)
 	{
 		if (strlen(csv_tab[i].prenom) == 0 || strlen(csv_tab[i].nom) == 0 || strlen(csv_tab[i].ville) == 0 || strlen(csv_tab[i].codep) == 0 || strlen(csv_tab[i].tel) == 0 || strlen(csv_tab[i].mail) == 0 || strlen(csv_tab[i].metier) == 0)
@@ -119,16 +139,23 @@ int recherche_occu_vide(CSV csv_tab[], int ligne)
 		}
 	}
 	printf("\nil y a %d personne ou il manque des information\n", conteur);
+	clock_t end=clock();
+	unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
+    printf( "Finished in %ld ms\n", millis );
+	system("pause");
 }
 
 int ouverture_attribution(CSV csv_tab[])
 {
+	char fichier[25];
+	printf("Entrez le nom du fichier a manipuler : ");
+	scanf("%s",&fichier);
 	char tableau[250];
 	int colone = 0;
 	int j = 0;
 	int ligne = 0;
 
-	FILE *annuaire = fopen(fic, "r");
+	FILE *annuaire = fopen(fichier, "r");
 
 	if (annuaire == NULL)
 	{
@@ -160,11 +187,8 @@ int ouverture_attribution(CSV csv_tab[])
 			ligne++;
 		}
 	} while (!feof(annuaire));
-	
 
 	return ligne;
-
-
 }
 
 int ajout(CSV csv_tab[],int ligne)
@@ -216,6 +240,7 @@ int ajout(CSV csv_tab[],int ligne)
 
 void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type_filtre)
 {
+	clock_t begin=clock();
 	int i;
 	for (i=0; i < ligne; i++)
 	{
@@ -237,7 +262,10 @@ void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type
 		}
 		
 	}
-	
+	clock_t end=clock();
+	unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
+    printf( "Finished in %ld ms\n", millis );
+	system("pause");
 }
 
 int ecriture(CSV csv_tab[],int ligne)
@@ -252,4 +280,39 @@ int ecriture(CSV csv_tab[],int ligne)
        }
        fprintf(fichier,"%s\n",champ(&csv_tab[i],colone));
    }
+}
+
+void suppression(CSV csv_tab[],int *ligne)
+{
+	int index;
+	printf("Entrez la ligne qui correspond a votre choix de supresion : ");
+	scanf("%d",&index);
+	csv_tab[index-1]=csv_tab[*ligne-1];
+	*ligne=*ligne-1;
+}
+
+void maj(CSV csv_tab[])
+{
+	int choix_colone;
+	int choix_index;
+	printf("Entrez l'indice de la personne que vous voulez modifier\n");
+	scanf("%d",&choix_index);
+	printf("\tEntrez 0 si vous voulez modifier le prenom\n");
+	printf("\tEntrez 1 si vous voulez modifier le nom\n");
+	printf("\tEntrez 2 si vous voulez modifier le ville\n");
+	printf("\tEntrez 3 si vous voulez modifier le codep\n");
+	printf("\tEntrez 4 si vous voulez modifier le tel\n");
+	printf("\tEntrez 5 si vous voulez modifier le mail\n");
+	printf("\tEntrez 6 si vous voulez modifier le metier\n");
+	printf("Entrez votre choix : \n");
+	scanf("%d",&choix_colone);
+	fflush(stdin);
+	printf("Entrez la modication : ");
+	fgets(champ(&csv_tab[choix_index-1],choix_colone),50,stdin);
+	if (champ(&csv_tab[choix_index],choix_colone)[strlen(champ(&csv_tab[choix_index],choix_colone))-1]=='\n')
+	{
+		champ(&csv_tab[choix_index],choix_colone)[strlen(champ(&csv_tab[choix_index],choix_colone))-1]='\0';
+	}
+	printf("la ligne a bien ete modifier\n");
+	
 }
