@@ -14,7 +14,8 @@ int main()
 	int indice[7000];
 	int type_colone;
 	int index_supr;
-	char chaine[]="Ade";
+	int type_filtre;
+	char chaine[]="ide";
 
 	
 	for (int i = 0; i < 7000; i++)
@@ -77,11 +78,28 @@ int main()
 			printf("\tSi vous voulez rechercher par le metier tapez 6\n");
 			printf("Entrez votre choix : ");
 			scanf("%d",&type_colone);
-			getchar();
+			fflush(stdin);
 			recherche(csv_tab,ligne,indice,type_colone);
 			break;
 		case 3:
-			filtre(csv_tab,ligne,chaine,0,indice,4);
+			printf("\tSi vous voulez filtrer par le prenom tapez 0\n");
+			printf("\tSi vous voulez filtrer par le nom tapez 1\n");
+			printf("\tSi vous voulez filtrer par le ville tapez 2\n");
+			printf("\tSi vous voulez filtrer par le codep tapez 3\n");
+			printf("\tSi vous voulez filtrer par le tel tapez 4\n");
+			printf("\tSi vous voulez filtrer par le mail tapez 5\n");
+			printf("\tSi vous voulez filtrer par le metier tapez 6\n");
+			printf("entrez votre choix : \n");
+			scanf("%d",&type_colone);
+			printf("\tRecherche Identique dans votre annuaire tapez 1 \n");
+			printf("\tRecherche ce trouvant dans le mot de l annuaire tapez 2\n");
+			printf("\tRecherche au fin du mots de l annuaire tapez 3\n");
+			printf("\tRecherche a la debut du mots de l annuaire tapez 4\n");
+			printf("Entrez votre choix : ");
+			scanf("%d",&type_filtre);
+			// printf("Entrez votre element a rechercher/filtrer : ");
+			// scanf("%d",&chaine);
+			filtre(csv_tab,ligne,chaine,type_colone,indice,type_filtre);
 			break;
 		case 4:
 			fflush(stdin);
