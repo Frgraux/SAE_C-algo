@@ -15,22 +15,22 @@ typedef struct csv
 */
 char* champ(CSV *personne,int rang);
 /**rédiger par François Graux
-	Entre csv_tab :tableau de stucture char , ligne int (nombre de ligne de csv_tab)
+	Entrée csv_tab :tableau de stucture char , ligne int (nombre de ligne de csv_tab)
 	post condition:
 	permet l'affichage des lignes en fonction de nos besoins
 */
 void affichage(CSV csv_tab[], int ligne);
 /**redigé par Graux François
 	
-	Entre csv_tab :tableau de structure ,index : int
+	Entrée csv_tab :tableau de structure ,index : int
 	sortie csv_tab[index]
 	post condition:
 	pemret de faire une recherche dans l'annuaire avec sont index et revoie la ligne correspondante
 */
 CSV recherche_index(CSV csv_tab[], int index);
 /** redigé par Graux François
-	// Entre ligne :int
-	// Entre/sortie csv_tab: tableau de structure 
+	// Entrée ligne :int
+	// Entrée/sortie csv_tab: tableau de structure 
 	// declaration :
 	// i,j :int
 	// ppt :CSV
@@ -39,40 +39,40 @@ CSV recherche_index(CSV csv_tab[], int index);
 */
 char tri_liste(CSV csv_tab[], int ligne);
 /** rédiger par François Graux
-	entre ligne :int (nombre de ligne de csv_tab) , indice :tableau de int ,rang :int
-	entre/sortie csv_tab: tableau de structure char
+	entrée ligne :int (nombre de ligne de csv_tab) , indice :tableau de int ,rang :int
+	entrée/sortie csv_tab: tableau de structure char
 	declaration:
-	int i,j,petit
+	i,j,petit : int
 	post condition:
 	Permet de trié le tableau de structure de maniere alphabetique de plusieur maniere en fonction des besoin de l'utilisateur
 */
 char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[],int rang);
 /** rédiger par François Graux
 	
-	Entre csv_tab:tableau de structure char ,ligne:int , indice : tableau de int (indice pour le tri indirect) , rang : int
+	Entrée csv_tab:tableau de structure char ,ligne:int , indice : tableau de int (indice pour le tri indirect) , rang : int
 	declaration:
-	char type_rec[]
-	int i
+	type_rec : tableau de char 
+	i : int
 	post condition:
 	Permet d'effectuer une recherche dans toute le tableau sur un element entrer en argument par l'utilisateur et le type d'element et choisi par l'utilisateur
 */
 void recherche(CSV csv_tab[],int ligne,int indice[],int rang);
 /** rédiger par François Graux
 	
-	Entre csv_tab : tableau de structure char , ligne :int (nombre de ligne de csv_tab)
+	Entrée csv_tab : tableau de structure char , ligne :int (nombre de ligne de csv_tab)
 	sorti csv_tab
 	declaration;
-	int j,contenuer
+	j,conteur : int
 	post condition:
 	Permet d'afficher les informations ainsi que le nommbre des lignes ou il manque des inforamtion dans la tableau de structure 
 */
 int recherche_occu_vide(CSV csv_tab[], int ligne);
 /** redigé par Graux François
 
-	Entre csv_tab : tableau de structure
+	Entrée csv_tab : tableau de structure
 	sortie ligne :int
 	declaration:
-	tableau :char
+	tableau :tableau de char , fichier : tableau de char
 	colone,ligne,j : int
 	post condition:
 	Permet de remplir le tableau de structure à partir du CSV en utilisant ma fonction champ pour remplir les bonnes informations
@@ -80,15 +80,15 @@ int recherche_occu_vide(CSV csv_tab[], int ligne);
 int ouverture_attribution(CSV csv_tab[]);
 /** rédiger par François Graux
 	
-	Entre char, ligne :int (nombre de ligne de csv_tab)
-	entre /sortie csv_tab:tableau de structure,ligne :int
+	Entrée char, ligne :int (nombre de ligne de csv_tab)
+	entrée /sortie csv_tab:tableau de structure,ligne :int
 	postcondition:
 	Permet d'ajouter une nouvelle personne à l'annuaire ainsi que de retouner le nombre de ligne + 1 et remplace les '\n' par des \0
 */
 int ajout(CSV csv_tab[],int ligne);
 /** rédiger par François Graux
  
-	Entre csv_tav :tableau de structure char,Ligne:int du nb de ligne de la strcuture,rang :int, indice:tableau de int ,type_filtre:int
+	Entrée/sortie csv_tav :tableau de structure char,Ligne:int du nb de ligne de la strcuture,rang :int, indice:tableau de int ,type_filtre:int
 	declaration:
 	int i
 	post condition:
@@ -96,13 +96,31 @@ int ajout(CSV csv_tab[],int ligne);
 */
 void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type_filtre);
 /**rédiger par François Graux
-	entrer csv_tab: tableau de structure char ,ligne : int
+	entrée csv_tab: tableau de structure char ,ligne : int
  	sortie fichier
+	Declaration : 
+	colone : int
 	post condition:
 	permet de remplir un fichier crée dans la fonction avec une copie du tableau de structure csv_tab
  */
 int ecriture(CSV csv_tab[],int ligne);
+/**rédiger par François Graux
+ * entrée/sortie csv_tab : tableau de structure
+ * entrée ligne : pointeur de int
+ * declaration : 
+ * index : int
+ * post condition :
+ * permet de supprimé une ligne choisi par l'utilisateur
+ */
 void suppression(CSV csv_tab[],int *ligne);
+/**rédiger par François Graux
+ * entrée/sortie csv_tab : tableau de structure
+ * entrée ligne : pointeur de int
+ * declaration : 
+ * choix_index,choix_colone : int
+ * post condition:
+ * permet de modifier une information d'une personne de l'annuaire
+ */
 void maj(CSV csv_tab[]);
 #endif
 
