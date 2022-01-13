@@ -263,7 +263,7 @@ void filtre(CSV csv_tab[],int ligne,char chaine[],int rang,int indice[],int type
 	}
 	clock_t end=clock();
 	unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
-    printf( "Finished in %ld ms\n", millis );
+    printf( "Filtrage terminer en %ld ms\n", millis );
 	system("pause");
 }
 
