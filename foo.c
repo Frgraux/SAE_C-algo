@@ -308,9 +308,9 @@ void maj(CSV csv_tab[])
 	fflush(stdin);
 	printf("Entrez la modication : ");
 	fgets(champ(&csv_tab[choix_index-1],choix_colone),50,stdin);
-	if (champ(&csv_tab[choix_index],choix_colone)[strlen(champ(&csv_tab[choix_index],choix_colone))-1]=='\n')
+	if (champ(&csv_tab[choix_index-1],choix_colone)[strlen(champ(&csv_tab[choix_index-1],choix_colone))-1]=='\n')
 	{
-		champ(&csv_tab[choix_index],choix_colone)[strlen(champ(&csv_tab[choix_index],choix_colone))-1]='\0';
+		champ(&csv_tab[choix_index-1],choix_colone)[strlen(champ(&csv_tab[choix_index-1],choix_colone))-1]='\0';
 	}
 	printf("la ligne a bien ete modifier\n");
 	
