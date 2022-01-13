@@ -15,7 +15,7 @@ int main()
 	int type_colone;
 	int index_supr;
 	int type_filtre;
-	char chaine[]="ide";
+	char chaine[25];
 
 	
 	for (int i = 0; i < 7000; i++)
@@ -91,14 +91,17 @@ int main()
 			printf("\tSi vous voulez filtrer par le metier tapez 6\n");
 			printf("entrez votre choix : \n");
 			scanf("%d",&type_colone);
+			fflush(stdin);
 			printf("\tRecherche Identique dans votre annuaire tapez 1 \n");
 			printf("\tRecherche ce trouvant dans le mot de l annuaire tapez 2\n");
 			printf("\tRecherche au fin du mots de l annuaire tapez 3\n");
 			printf("\tRecherche a la debut du mots de l annuaire tapez 4\n");
 			printf("Entrez votre choix : ");
 			scanf("%d",&type_filtre);
-			// printf("Entrez votre element a rechercher/filtrer : ");
-			// scanf("%d",&chaine);
+			fflush(stdin);
+			printf("Entrez votre element a rechercher/filtrer : ");
+			scanf("%s",&chaine);
+			fflush(stdin);
 			filtre(csv_tab,ligne,chaine,type_colone,indice,type_filtre);
 			break;
 		case 4:
