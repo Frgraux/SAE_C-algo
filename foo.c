@@ -128,7 +128,6 @@ void recherche(CSV csv_tab[],int ligne,int indice[],int rang)
 int recherche_occu_vide(CSV csv_tab[], int ligne)
 {
 	clock_t begin=clock();
-	int j;
 	int conteur = 0;
 	for (int i = 0; i < ligne; i++)
 	{
