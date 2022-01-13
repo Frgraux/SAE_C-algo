@@ -97,7 +97,7 @@ char tri_liste_indirect(CSV csv_tab[],int ligne,int indice[],int rang)
 	}
 	clock_t end=clock();
 	unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
-    printf( "Finished in %ld ms\n", millis );
+    printf( "Tri terminer en %ld ms\n", millis );
 	system("pause");
 }
 
@@ -122,7 +122,7 @@ void recherche(CSV csv_tab[],int ligne,int indice[],int rang)
 	}
 	clock_t end=clock();
 	unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
-    printf( "Finished in %ld ms\n", millis );
+    printf( "Recherche terminer %ld ms\n", millis );
 }
 
 int recherche_occu_vide(CSV csv_tab[], int ligne)

@@ -129,6 +129,17 @@ int main()
 			recherche_occu_vide(csv_tab,ligne);
 			break;
 		case 7:
+			printf("\tTapez 0 si vous voulez chercher par le prenom la personne a supprime\n");
+			printf("\tTapez 1 si vous voulez chercher par le nom la personne a supprime\n");
+			printf("\tTapez 2 si vous voulez chercher par le ville la personne a supprime\n");
+			printf("\tTapez 3 si vous voulez chercher par le codep la personne a supprime\n");
+			printf("\tTapez 4 si vous voulez chercher par le tel la personne a supprime\n");
+			printf("\tTapez 5 si vous voulez chercher par le mail la personne a supprime\n");
+			printf("\tTapez 6 si vous voulez chercher par le métier la personne a supprime\n");
+			printf("Entrez votre choix : ");
+			scanf("%d",&type_colone);
+			fflush(stdin);
+			recherche(csv_tab,ligne,indice,type_colone);
 			maj(csv_tab);
 			break;
 		case 8:
