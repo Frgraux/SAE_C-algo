@@ -124,6 +124,41 @@ void recherche(CSV csv_tab[],int ligne,int indice[],int rang)
 	unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
     printf( "Recherche terminer %ld ms\n", millis );
 }
+void recherche2(CSV csv_tab[],int ligne,int indice[])
+{
+	
+	tri_liste_indirect(csv_tab,ligne,indice,0);
+	int i=0;
+	char type_rec1[50];
+	char type_rec2[50];
+	char type_rec3[50];
+	printf("Entrez le prenom de la personne vous souhaiter rechercher : ");
+	fgets(type_rec1,sizeof(type_rec1),stdin);
+	fflush(stdin);
+	printf("Entrez son nom : ");
+	fgets(type_rec2,sizeof(type_rec2),stdin);
+	fflush(stdin);
+	printf("Entrez le tel : ");
+	fgets(type_rec3,sizeof(type_rec3),stdin);
+	fflush(stdin);
+	type_rec3[strlen(type_rec3)-1] = '\0';
+	type_rec1[strlen(type_rec1)-1] = '\0';
+	type_rec2[strlen(type_rec2)-1] = '\0';
+	
+	clock_t begin=clock();
+	
+	while (i < ligne && strcasecmp(champ(&csv_tab[indice[i]],0),type_rec1)<=0)
+	{
+		if (strcasecmp(champ(&csv_tab[indice[i]],0),type_rec1)==0 && strcasecmp(champ(&csv_tab[indice[i]],1),type_rec2)==0 && strcasecmp(champ(&csv_tab[indice[i]],4),type_rec3)==0)
+		{
+			affichage(csv_tab,indice[i]);
+		}
+		i++;
+	}
+	clock_t end=clock();
+	unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
+    printf( "Recherche terminer %ld ms\n", millis );
+}
 
 int recherche_occu_vide(CSV csv_tab[], int ligne)
 {

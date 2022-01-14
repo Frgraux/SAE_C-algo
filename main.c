@@ -69,17 +69,8 @@ int main()
 			}
 			break;
 		case 2:
-			printf("\tSi vous voulez rechercher par le prenom tapez 0\n");
-			printf("\tSi vous voulez rechercher par le nom tapez 1\n");
-			printf("\tSi vous voulez rechercher par le ville tapez 2\n");
-			printf("\tSi vous voulez rechercher par le codep tapez 3\n");
-			printf("\tSi vous voulez rechercher par le tel tapez 4\n");
-			printf("\tSi vous voulez rechercher par le mail tapez 5\n");
-			printf("\tSi vous voulez rechercher par le metier tapez 6\n");
-			printf("Entrez votre choix : ");
-			scanf("%d",&type_colone);
 			fflush(stdin);
-			recherche(csv_tab,ligne,indice,type_colone);
+			recherche2(csv_tab,ligne,indice);
 			break;
 		case 3:
 			printf("\tSi vous voulez filtrer par le prenom tapez 0\n");
@@ -129,13 +120,13 @@ int main()
 			recherche_occu_vide(csv_tab,ligne);
 			break;
 		case 7:
-			printf("\tTapez 0 si vous voulez chercher par le prenom la personne a supprime\n");
-			printf("\tTapez 1 si vous voulez chercher par le nom la personne a supprime\n");
-			printf("\tTapez 2 si vous voulez chercher par le ville la personne a supprime\n");
-			printf("\tTapez 3 si vous voulez chercher par le codep la personne a supprime\n");
-			printf("\tTapez 4 si vous voulez chercher par le tel la personne a supprime\n");
-			printf("\tTapez 5 si vous voulez chercher par le mail la personne a supprime\n");
-			printf("\tTapez 6 si vous voulez chercher par le métier la personne a supprime\n");
+			printf("\tTapez 0 si vous voulez chercher par le prenom la personne a modifier\n");
+			printf("\tTapez 1 si vous voulez chercher par le nom la personne a modifier\n");
+			printf("\tTapez 2 si vous voulez chercher par le ville la personne a modifier\n");
+			printf("\tTapez 3 si vous voulez chercher par le codep la personne a modifier\n");
+			printf("\tTapez 4 si vous voulez chercher par le tel la personne a modifier\n");
+			printf("\tTapez 5 si vous voulez chercher par le mail la personne a modifier\n");
+			printf("\tTapez 6 si vous voulez chercher par le métier la personne a modifier\n");
 			printf("Entrez votre choix : ");
 			scanf("%d",&type_colone);
 			fflush(stdin);

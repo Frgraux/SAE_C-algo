@@ -122,6 +122,13 @@ void suppression(CSV csv_tab[],int *ligne);
  * permet de modifier une information d'une personne de l'annuaire
  */
 void maj(CSV csv_tab[]);
+/**rédiger par graux françois
+ * Entrée csv_tab : tableau de structure char , ligne :int (nombre de ligne de csv_tab)
+	sorti csv_tab
+	post condition:
+	Permet d'afficher les informations ainsi que le nommbre des lignes ou il manque des inforamtion dans la tableau de structure avec le nom prenom et tel
+*/
+void recherche2(CSV csv_tab[],int ligne,int indice[]);
 #endif
 
 
