@@ -314,12 +314,13 @@ int ecriture(CSV csv_tab[],int ligne)
        }
        fprintf(fichier,"%s\n",champ(&csv_tab[i],colone));
    }
+   fclose(fichier);
 }
 
 void suppression(CSV csv_tab[],int *ligne)
 {
 	int index;
-	printf("Entrez la ligne qui correspond a votre choix de supresion : ");
+	printf("Entrez l'indice de la ligne qui correspond a votre choix de supresion : ");
 	scanf("%d",&index);
 	csv_tab[index-1]=csv_tab[*ligne-1];
 	*ligne=*ligne-1;
